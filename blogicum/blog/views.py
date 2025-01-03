@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -45,7 +44,6 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
-
 
 
 def index(request):
