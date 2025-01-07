@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.http import Http404
+from typing import Final
 
 
-# Create your views here.
-posts = [
+POSTS: Final[list] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -45,16 +46,23 @@ posts = [
     },
 ]
 
+posts_dict = {post['id']: post for post in POSTS}
+
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': posts[::-1]}
+    context = {'posts': POSTS[::-1]}
     return render(request, template, context)
 
 
-def post_detail(request, id):
+def post_detail(request, post_id):
     template = 'blog/detail.html'
-    context = {'post': posts[id]}
+    post = posts_dict.get(post_id)
+
+    if post is None:
+        raise Http404("""Post with this number does not exist.
+                      Please check and improve the number.""")
+    context = {'post': post}
     return render(request, template, context)
 
 
