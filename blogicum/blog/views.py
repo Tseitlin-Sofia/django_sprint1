@@ -3,7 +3,7 @@ from django.http import Http404
 from typing import Final
 
 
-POSTS: Final[list] = [
+posts: Final[list] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -46,12 +46,12 @@ POSTS: Final[list] = [
     },
 ]
 
-posts_dict = {post['id']: post for post in POSTS}
+posts_dict = {post['id']: post for post in posts}
 
 
 def index(request):
     template = 'blog/index.html'
-    context = {'posts': POSTS[::-1]}
+    context = {'posts': posts[::-1]}
     return render(request, template, context)
 
 
