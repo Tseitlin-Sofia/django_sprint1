@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from typing import Final, List, Dict, Union
+
 from django.http import Http404
-from typing import Final
+from django.shortcuts import render
 
 
-posts: Final[list] = [
+posts: Final[List[Dict[str, Union[int, str]]]] = [
     {
         'id': 0,
         'location': 'Остров отчаянья',
@@ -57,11 +58,11 @@ def index(request):
 
 def post_detail(request, post_id):
     template = 'blog/detail.html'
-    post = posts_dict.get(post_id)
-
-    if post is None:
+    if post_id not in posts_dict:
         raise Http404("""Post with this number does not exist.
                       Please check and improve the number.""")
+    else:
+        post = posts_dict[post_id]
     context = {'post': post}
     return render(request, template, context)
 
