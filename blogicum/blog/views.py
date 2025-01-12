@@ -59,10 +59,8 @@ def index(request):
 def post_detail(request, post_id):
     template = 'blog/detail.html'
     if post_id not in posts_dict:
-        raise Http404("""Post with this number does not exist.
-                      Please check and improve the number.""")
-    else:
-        post = posts_dict[post_id]
+        raise Http404('Post not found')
+    post = posts_dict[post_id]
     context = {'post': post}
     return render(request, template, context)
 
